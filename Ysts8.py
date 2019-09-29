@@ -43,14 +43,14 @@ class Ysts8(object):
             """%B6%B7%C2%DE%B4%F3%C2%BD"""
 
             def parse_page(page_num=1):
-                url = 'https://www.ysts8.com/Ys_so.asp?stype=1&keyword={}&page={}'.format(keyword, page_num)
+                url = 'https://www.ysx8.net/Ys_so.asp?stype=1&keyword={}&page={}'.format(keyword, page_num)
                 res = requests.get(url, headers={'User-Agent': UserAgent(verify_ssl=False).random,
-                                                 'Host': 'www.ysts8.com'}).content.decode('gb2312', errors='ignore')
+                                                 'Host': 'www.ysx8.net'}).content.decode('gb2312', errors='ignore')
                 soup = bs(res, 'lxml')
                 a_href_obj = soup.select('body > div.toolbox > div.pingshu_ysts8 > ul > li > a')
                 for a_href in a_href_obj:
                     info = a_href.get_text() + '    '
-                    href = 'https://www.ysts8.com/{}'.format(a_href.get('href'))
+                    href = 'https://www.ysx8.net/{}'.format(a_href.get('href'))
                     self.book_info.update({
                         info: href
                     })
@@ -79,7 +79,7 @@ class Ysts8(object):
             href = self.book_info[self.book_title]
             res = requests.get(href, headers={
                 'User-Agent': UserAgent(verify_ssl=False).random,
-                'Host': 'www.ysts8.com'
+                'Host': 'www.ysx8.net'
             }).text
             html = etree.HTML(res)
             total_urls = html.xpath('//div[@class="ny_l"]//ul//li//a//@href')
@@ -87,7 +87,7 @@ class Ysts8(object):
             return total_urls
 
         def _parse_download_page(url_list):
-            re_urls = ['https://www.ysts8.com{}'.format(url) for url in url_list]
+            re_urls = ['https://www.ysx8.net{}'.format(url) for url in url_list]
             return re_urls
 
         # 获取所有音频链接
